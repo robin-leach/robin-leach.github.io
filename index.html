@@ -54,25 +54,31 @@
 
     <script type="text/javascript">
       function refreshScriptTypes() {
-        var cookies = document.cookie.split('; ').map(c => c.split("="));
-        var csCookie = cookies.find(c => c[0] = "CookieScriptConsent");
-        console.log("cookie is ", csCookie);
-        if (
-          csCookie &&
-          csCookie.action === "accept" &&
-          csCookie.categories.includes("functionality")
-        ) {
-          console.log("accepted functionality");
-          var gaScript = document.getElementById("ga-script");
-          gaScript.type = "text/javascript";
-          var hjScript = document.getElementById("hj-script");
-          hjScript.type = "text/javascript";
-        } else if (csCookie && csCookie.action === "reject") {
-          console.log("rejected");
-          var gaScript = document.getElementById("ga-script");
-          gaScript.type = "text/plain";
-          var hjScript = document.getElementById("hj-script");
-          hjScript.type = "text/plain";
+        var cookies = document.cookie.split("; ").map(function (c) {
+          return c.split("=");
+        });
+        var csCookie = cookies.find(function (c) {
+          return (c[0] = "CookieScriptConsent");
+        });
+        if (csCookie) {
+          var value = JSON.parse(csCookie[1]);
+          console.log("cookie is ", value);
+          if (
+            value.action === "accept" &&
+            value.categories.includes("functionality")
+          ) {
+            console.log("accepted functionality");
+            var gaScript = document.getElementById("ga-script");
+            gaScript.type = "text/javascript";
+            var hjScript = document.getElementById("hj-script");
+            hjScript.type = "text/javascript";
+          } else if (value.action === "reject") {
+            console.log("rejected");
+            var gaScript = document.getElementById("ga-script");
+            gaScript.type = "text/plain";
+            var hjScript = document.getElementById("hj-script");
+            hjScript.type = "text/plain";
+          }
         }
       }
       document.getElementById("myButton").onclick = refreshScriptTypes;
