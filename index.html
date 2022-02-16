@@ -6,8 +6,32 @@
       charset="UTF-8"
       src="//cdn.cookie-script.com/s/d9aae17bd6966284aff81be19b156399.js"
     ></script>
-    <!-- Google Tag Manager -->
     <script>
+      function refreshScriptTypes() {
+        var cookie = document.cookie.CookieScriptConsent;
+        if (
+          cookie.action === "accept" &&
+          cookie.categories.includes("functionality")
+        ) {
+          console.log("accepted functionality");
+          var gaScript = document.getElementById("ga-script");
+          gaScript.type = "text/javascript";
+          var hjScript = document.getElementById("hj-script");
+          hjScript.type = "text/javascript";
+        } else if (cookie.action === "reject") {
+          console.log("rejected");
+          var gaScript = document.getElementById("ga-script");
+          gaScript.type = "text/plain";
+          var hjScript = document.getElementById("hj-script");
+          hjScript.type = "text/plain";
+        }
+      }
+    </script>
+    <script>
+      document.getElementById("myButton").onclick = refreshScriptTypes();
+    </script>
+    <!-- Google Tag Manager -->
+    <script id="ga-script" type="text/plain">
       (function (w, d, s, l, i) {
         w[l] = w[l] || [];
         w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
@@ -21,7 +45,7 @@
     </script>
     <!-- End Google Tag Manager -->
     <!-- Hotjar Tracking Code for https://robin-leach.github.io/ -->
-    <script>
+    <script id="hj-script" type="text/plain">
       (function (h, o, t, j, a, r) {
         h.hj =
           h.hj ||
@@ -50,6 +74,6 @@
     <!-- End Google Tag Manager (noscript) -->
     <h1>Example heading</h1>
     <p>Example paragraph</p>
-    <button>Example button</button>
+    <button id="myButton">Example button</button>
   </body>
 </html>
