@@ -6,27 +6,6 @@
       charset="UTF-8"
       src="//cdn.cookie-script.com/s/d9aae17bd6966284aff81be19b156399.js"
     ></script>
-    <script>
-      function refreshScriptTypes() {
-        var cookie = document.cookie.CookieScriptConsent;
-        if (
-          cookie.action === "accept" &&
-          cookie.categories.includes("functionality")
-        ) {
-          console.log("accepted functionality");
-          var gaScript = document.getElementById("ga-script");
-          gaScript.type = "text/javascript";
-          var hjScript = document.getElementById("hj-script");
-          hjScript.type = "text/javascript";
-        } else if (cookie.action === "reject") {
-          console.log("rejected");
-          var gaScript = document.getElementById("ga-script");
-          gaScript.type = "text/plain";
-          var hjScript = document.getElementById("hj-script");
-          hjScript.type = "text/plain";
-        }
-      }
-    </script>
     <!-- Google Tag Manager -->
     <script id="ga-script" type="text/plain">
       (function (w, d, s, l, i) {
@@ -74,6 +53,25 @@
     <button id="myButton">Example button</button>
 
     <script type="text/javascript">
+      function refreshScriptTypes() {
+        var cookie = document.cookie.CookieScriptConsent;
+        if (
+          cookie.action === "accept" &&
+          cookie.categories.includes("functionality")
+        ) {
+          console.log("accepted functionality");
+          var gaScript = document.getElementById("ga-script");
+          gaScript.type = "text/javascript";
+          var hjScript = document.getElementById("hj-script");
+          hjScript.type = "text/javascript";
+        } else if (cookie.action === "reject") {
+          console.log("rejected");
+          var gaScript = document.getElementById("ga-script");
+          gaScript.type = "text/plain";
+          var hjScript = document.getElementById("hj-script");
+          hjScript.type = "text/plain";
+        }
+      }
       document.getElementById("myButton").onclick = refreshScriptTypes;
     </script>
   </body>
