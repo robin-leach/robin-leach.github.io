@@ -54,19 +54,20 @@
 
     <script type="text/javascript">
       function refreshScriptTypes() {
-        var cookie = document.cookie.CookieScriptConsent;
-        console.log("cookie is ", cookie);
+        var cookies = document.cookie.split('; ').map(c => c.split("="));
+        var csCookie = cookies.find(c => c[0] = "CookieScriptConsent");
+        console.log("cookie is ", csCookie);
         if (
-          cookie &&
-          cookie.action === "accept" &&
-          cookie.categories.includes("functionality")
+          csCookie &&
+          csCookie.action === "accept" &&
+          csCookie.categories.includes("functionality")
         ) {
           console.log("accepted functionality");
           var gaScript = document.getElementById("ga-script");
           gaScript.type = "text/javascript";
           var hjScript = document.getElementById("hj-script");
           hjScript.type = "text/javascript";
-        } else if (cookie && cookie.action === "reject") {
+        } else if (csCookie && csCookie.action === "reject") {
           console.log("rejected");
           var gaScript = document.getElementById("ga-script");
           gaScript.type = "text/plain";
