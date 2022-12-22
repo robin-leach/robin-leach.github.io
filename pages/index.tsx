@@ -3,6 +3,8 @@ import styles from '../styles/Home.module.css';
 import axios from "axios"
 import { useEffect, useState } from 'react';
 
+const setterUrl = "https://5b3zrow5c9.execute-api.us-east-1.amazonaws.com/default/crossword-info";
+
 const Content: React.FC<{setter: string | null}> = ({setter}) => {
   if (setter == null) {
     return <p>Loading...</p>
@@ -12,8 +14,9 @@ const Content: React.FC<{setter: string | null}> = ({setter}) => {
     return (
       <>
         <h1 className={styles.title}>
-          Yes!
+          Yes
         </h1>
+        <p>It's a Slormgorm!</p>
       </>
     )
   }
@@ -32,10 +35,8 @@ const Home: React.FC = () => {
   const [res, setRes] = useState(null);
   
   useEffect(() => {
-    axios.get("https://5b3zrow5c9.execute-api.us-east-1.amazonaws.com/default/crossword-info").then((r) => setRes(r.data))
+    axios.get(setterUrl).then((r) => setRes(r.data))
   }, [])
-
-  console.log(res);
 
   return (
     <div className={styles.container}>
