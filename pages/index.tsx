@@ -5,6 +5,14 @@ import { useEffect, useState } from 'react';
 
 const setterUrl = "https://5b3zrow5c9.execute-api.us-east-1.amazonaws.com/default/crossword-info";
 
+const ErrorView: React.FC<{error: Error}> = ({error}) => (
+  <>
+    <h1>Error</h1>
+    <code>{error.message}</code>
+    <p>Refresh and try again</p>
+  </>
+)
+
 const Content: React.FC<{setter: string | null}> = ({setter}) => {
   if (setter == null) {
     return <p>Loading...</p>
@@ -33,10 +41,15 @@ const Content: React.FC<{setter: string | null}> = ({setter}) => {
 
 const Home: React.FC = () => {
   const [res, setRes] = useState(null);
+  const [error, setError] = useState(null);
   
   useEffect(() => {
-    axios.get(setterUrl).then((r) => setRes(r.data))
+    axios.get(setterUrl).then((r) => setRes(r.data)).catch(setError)
   }, [])
+
+  if(error) {
+    console.error(error)
+  }
 
   return (
     <div className={styles.container}>
@@ -46,7 +59,9 @@ const Home: React.FC = () => {
       </Head>
 
       <main>
-        <Content setter={res} />
+        {error
+          ? <ErrorView error={error} />
+          : <Content setter={res} />}
       </main>
   
       <style jsx>{`
