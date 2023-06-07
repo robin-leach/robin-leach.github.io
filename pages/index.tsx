@@ -28,6 +28,17 @@ const Content: React.FC<{setter: string | null}> = ({setter}) => {
       </>
     )
   }
+
+  if (setter.toLowerCase() == "io") {
+    return (
+      <>
+        <h1 className={styles.title}>
+          No...
+        </h1>
+        <p>Brace yourself... it's an IO</p>
+      </>
+    )
+  }
   
   return (
     <>
